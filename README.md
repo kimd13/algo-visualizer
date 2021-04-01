@@ -12,15 +12,15 @@ Visual tool to aid in understanding algorithms. Currently does:
  
 ## Screenshots
 
-###User Input @Launch
+### User Input @Launch
 ![user_input](./art/user_input.png)
 
-###Beginning State
+### Beginning State
 ![begin_screenshot](./art/algo_visualizer_screenshot_begin.png)
 
-###In Progress State
+### In Progress State
 ![in_progress_screenshot](./art/algo_visualizer_screenshot_in_progress.png)
 
-###Ending State
+### Ending State
 ![end_screenshot](./art/algo_visualizer_screenshot_end.png)
 
