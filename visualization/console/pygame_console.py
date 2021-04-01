@@ -3,7 +3,8 @@ import pygame
 
 from algo.holder.sort_container_holder import SortContainerHolder
 from visualization.console.console_contract import ConsoleContract
-from visualization.console.utils.colors.sort_color_collection import SortColorCollection
+from visualization.console.utils.colors.sort_color_collection import \
+    SortColorCollection
 from visualization.console.utils.colors.colors import Colors
 from visualization.console.utils.console_constants import ConsoleConstants
 
@@ -23,8 +24,7 @@ class PyGameConsole(ConsoleContract):
 
     # color related attributes
     __colors_collection = SortColorCollection()
-    __elements_in_color = [__colors_collection.initial_bar_color] \
-                          * ConsoleConstants.MAX_LEN_ELEMENTS
+    __elements_in_color = []
 
     # screen attributes
     __screen = None
@@ -79,6 +79,7 @@ class PyGameConsole(ConsoleContract):
 
     def __on_return_pressed(self):
         """handles return pressed"""
+        self.__set_elements_in_color()
         self.current_sort_container.sort(elements=
                                          self.elements,
                                          elements_in_color=
@@ -115,18 +116,15 @@ class PyGameConsole(ConsoleContract):
     def __set_elements(self, elements: [int]):
         """sets elements in console"""
         self.elements = elements
-        for i in range(ConsoleConstants.MAX_LEN_ELEMENTS):
-            self.__elements_in_color[i] = \
-                self.__colors_collection.initial_bar_color
+        self.__set_elements_in_color()
 
     def __generate_random_elements(self):
         """generates elements in console"""
+        self.__set_elements_in_color()
         for i in range(ConsoleConstants.MAX_LEN_ELEMENTS):
             self.elements[i] = random.randrange(
                 ConsoleConstants.ELEMENT_LOWER_BOUND_LIMIT_INCLUSIVE,
                 ConsoleConstants.ELEMENT_UPPER_BOUND_LIMIT_EXCLUSIVE)
-            self.__elements_in_color[i] = \
-                self.__colors_collection.initial_bar_color
 
     def __init_font(self) -> None:
         """initializes font"""
@@ -147,7 +145,8 @@ class PyGameConsole(ConsoleContract):
         """positions start text"""
         start_text_position = (ConsoleConstants.VERTICAL_TEXT_POSITION,
                                ConsoleConstants.START_HORIZONTAL_POSITION)
-        start_text = self.__font_style_large.render(ConsoleConstants.START_TEXT, 1,
+        start_text = self.__font_style_large.render(ConsoleConstants.START_TEXT,
+                                                    1,
                                                     self.__font_color)
         self.__screen.blit(start_text, start_text_position)
 
@@ -201,3 +200,9 @@ class PyGameConsole(ConsoleContract):
         y = self.elements[range_idx] * (
                 550 / 100) + 100
         return x, y
+
+    def __set_elements_in_color(self):
+        """sets elements in color"""
+        self.__elements_in_color = \
+            [self.__colors_collection.initial_bar_color] \
+            * ConsoleConstants.MAX_LEN_ELEMENTS

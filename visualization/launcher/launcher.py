@@ -117,10 +117,10 @@ class Launcher(LauncherContract):
                         formatted_content.append(piece)
                 except ValueError:
                     print(LauncherConstants.NON_INT_EXCEPTION_ALERT)
-                    formatted_content = []
+                    return []
                 except BoundsException:
                     print(LauncherConstants.BOUNDS_EXCEPTION_ALERT)
-                    formatted_content = []
+                    return []
         try:
             self.__verify_length(formatted_content)
             return formatted_content
